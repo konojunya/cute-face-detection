@@ -25,6 +25,7 @@ class FaceDetection(object):
         return cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
 
     def recognition(self,url):
+      try:
         image = self.readImage(url)
         image_gray = self.convertToGrayScale(image)
 
@@ -50,7 +51,11 @@ class FaceDetection(object):
         print "\nface rect/ "+str(facerect_len)
         print "eye rect/ "+str(eyerect_len)
         print "nose rect/ "+str(noserect_len)
+      except:
+        facerect_len = 0
+        eyerect_len = 0
+        noserect_len = 0
 
-        return int(facerect_len) + int(eyerect_len) + int(noserect_len) > 10 if True else False
+      return int(facerect_len) + int(eyerect_len) + int(noserect_len) > 10 if True else False
 
 faceDetection = FaceDetection()
