@@ -14,9 +14,13 @@ class FaceDetection(object):
             "eye": "/usr/local/opt/opencv/share/OpenCV/haarcascades/haarcascade_eye.xml",
             "nose": "/usr/local/opt/opencv/share/OpenCV/haarcascades/haarcascade_mcs_nose.xml"
         }
+        self.jsonData = {}
 
     def _print(self, text):
         print '\033[92m' + text + '\033[0m'
+
+    def getJsonData(self):
+        return self.jsonData
 
     def readImage(self, url):
         print "\ndownloading %s" % (url)
@@ -29,7 +33,9 @@ class FaceDetection(object):
     def convertToGrayScale(self, image):
         return cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
 
-    def recognition(self, url):
+    def recognition(self, line):
+        url = str.strip(line)
+        path = os.path.basename(url)
         try:
             image = self.readImage(url)
             image_gray = self.convertToGrayScale(image)
@@ -65,7 +71,8 @@ class FaceDetection(object):
         self._print("Total Point:\t" + str(int(facerect_len) +
                                            int(eyerect_len) + int(noserect_len)))
 
-        return int(facerect_len) + int(eyerect_len) + int(noserect_len) > 10 if True else False
+        self.jsonData[path] = int(facerect_len) + \
+            int(eyerect_len) + int(noserect_len) > 10
 
 
 faceDetection = FaceDetection()

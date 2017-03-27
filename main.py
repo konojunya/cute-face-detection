@@ -7,20 +7,16 @@ import json
 
 if __name__ == "__main__":
 
-    print "starting face detection!"
+    print "\nstarting face detection!\n"
 
-    f = open("./test.txt", "r")
-    jsonData = {}
+    f = open("./images.txt", "r")
 
     for line in f:
-        url = str.strip(line)
-        path = os.path.basename(url)
-        jsonData[path] = fd.recognition(url)
-
+        fd.recognition(line)
     f.close()
 
-    f = open("test.json", "w")
-    json.dump(jsonData, f)
+    f = open("assets.json", "w")
+    json.dump(fd.getJsonData(), f,indent=2,sort_keys=True,separators=(',', ': '))
     f.close()
 
     print "complete!"
