@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
-import cv2, os.path, sys, urllib
+import cv2
+import os.path
+import sys
+import urllib
+import numpy as np
 
+print WARNING + 'Warning' + ENDC
 
 class FaceDetection(object):
 
@@ -11,18 +16,19 @@ class FaceDetection(object):
             "nose": "/usr/local/opt/opencv/share/OpenCV/haarcascades/haarcascade_mcs_nose.xml"
         }
 
-    def readImage(self,url):
-        img = urllib.urlopen(url)
-        image_path = os.path.basename(url)
-        localfile = open("assets/"+image_path, 'wb')
-        localfile.write(img.read())
-        img.close()
-        localfile.close()
+    def print(self,text):
+      print '\033[92m' + text +  '\033[0m'
 
-        return cv2.imread("assets/"+image_path)
+    def readImage(self,url):
+      print "downloading %s" % (url)
+      resp = urllib.urlopen(url)
+      image = np.asarray(bytearray(resp.read()),dtype="uint8")
+      image = cv2.imdecode(image,cv2.IMREAD_COLOR)
+
+      return image
 
     def convertToGrayScale(self, image):
-        return cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
+      return cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
 
     def recognition(self,url):
       try:
@@ -48,9 +54,10 @@ class FaceDetection(object):
         eyerect_len = len(eyerect)
         noserect_len = len(noserect)
 
-        print "\nface rect/ "+str(facerect_len)
-        print "eye rect/ "+str(eyerect_len)
-        print "nose rect/ "+str(noserect_len)
+        self.print("\nface rect:\t\t"+str(facerect_len))
+        self.print("eye rect:\t\t"+str(eyerect_len))
+        self.print("nose rect:\t\t"+str(noserect_len))
+        print "\n"
       except:
         facerect_len = 0
         eyerect_len = 0
