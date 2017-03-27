@@ -5,9 +5,6 @@ import sys
 import urllib
 import numpy as np
 
-print WARNING + 'Warning' + ENDC
-
-
 class FaceDetection(object):
 
     def __init__(self):
