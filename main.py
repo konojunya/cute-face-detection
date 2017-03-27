@@ -7,9 +7,9 @@ import json
 
 if __name__ == "__main__":
 
-    print "\nstarting face detection!\n\n"
+    print "starting face detection!"
 
-    f = open("./images.txt", "r")
+    f = open("./test.txt", "r")
     jsonData = {}
 
     for line in f:
@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     f.close()
 
-    f = open("assets.json", "w")
+    f = open("test.json", "w")
     json.dump(jsonData, f)
     f.close()
 
