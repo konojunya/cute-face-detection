@@ -62,7 +62,8 @@ class FaceDetection(object):
             eyerect_len = 0
             noserect_len = 0
 
-        self._print("Total Point:\t" + str(int(facerect_len) + int(eyerect_len) + int(noserect_len)))
+        self._print("Total Point:\t" + str(int(facerect_len) +
+                                           int(eyerect_len) + int(noserect_len)))
 
         return int(facerect_len) + int(eyerect_len) + int(noserect_len) > 10 if True else False
 
