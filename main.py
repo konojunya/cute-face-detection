@@ -4,19 +4,19 @@ import sys
 import urllib
 import os.path
 import json
+import glob
 
 if __name__ == "__main__":
 
     print "\nstarting face detection!\n"
 
-    f = open("./images.txt", "r")
+    for file in glob.glob('datasets/*'):
+        fd.file_recognition(file)
 
-    for line in f:
-        fd.recognition(line)
-    f.close()
+    # f = open("./images.txt", "r")
 
-    f = open("assets.json", "w")
-    json.dump(fd.getJsonData(), f,indent=2,sort_keys=True,separators=(',', ': '))
-    f.close()
+    # for line in f:
+    #     fd.recognition(line)
+    # f.close()
 
     print "complete!"
